@@ -3,7 +3,7 @@
     "description": "Form builder",
     "keywords": ["form"],
     "type": "library",
-    "homepage": "https://github.com/Edgesystems/Form"
+    "homepage": "https://github.com/Edgesystems/Form",
     "license": "MIT",
     "authors": [
         {
