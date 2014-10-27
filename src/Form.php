@@ -18,7 +18,7 @@ class Form {
 			}
 		}
 
-		$this->setData( $data );	
+		$this->setData( $data );
 	}
 
 	public function setAttr( $name, $value ) {
@@ -53,8 +53,8 @@ class Form {
 		$return = array();
 		foreach( $this->structure as $el ) {
 			$return[$el->getAttr('name')] = $el->getAttr( 'value' );
-		}	
-	
+		}
+
 		return $return;
 	}
 
@@ -94,7 +94,7 @@ class Form {
 
 		$return = true;
 		foreach( $this->structure as $el ) {
-			$return = $return && $el->isSubmitted();	
+			$return = $return && $el->isSubmitted();
 		}
 
 		return $return;
@@ -189,7 +189,7 @@ class Form {
 		$el = new element\Button( $name, $attr );
 		return $this->addElement( $el );
 	}
-	
+
 	public function addReset( $el, array $attr = array() ) {
 		$el = new element\Reset( $name, $attr );
 		return $this->addElement( $el );
@@ -197,6 +197,11 @@ class Form {
 
 	public function addText( $name, array $attr = array() ) {
 		$el = new element\Text( $name, $attr );
+		return $this->addElement( $el );
+	}
+
+	public function addHidden( $name, array $attr = array() ) {
+		$el = new element\Hidden( $name, $attr );
 		return $this->addElement( $el );
 	}
 
@@ -210,6 +215,22 @@ class Form {
 		return $this->addElement( $el );
 	}
 
+	public function addSelect( $name, array $attr, array $options) {
+		$el = new element\Select( $name, $attr, $options );
+		return $this->addElement( $el );
+	}
+
+	public function addSelectOptGroup( $name, array $attr, array $options) {
+		$el = new element\SelectOptGroup( $name, $attr, $options );
+		return $this->addElement( $el );
+	}
+
+	public function addCheckbox( $name, array $attr = array() ) {
+		$el = new element\Checkbox( $name, $attr );
+
+		return $this->addElement( $el );
+	}
+
 	public function addElement( element\Element $el ) {
 		$name = $el->getAttr( 'name' );
 
@@ -218,5 +239,15 @@ class Form {
 		}
 
 		return $this->structure[] = $el;
+	}
+
+	public function getElement($name){
+		foreach ($this->structure as $el) {
+			if($el->getName() == $name){
+				return $el;
+			}
+		}
+
+		return false;
 	}
 }

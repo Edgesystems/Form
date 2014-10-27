@@ -2,7 +2,7 @@
 
 namespace edge\form\element;
 
-class Element {
+abstract class Element {
 	const MIN_LENGTH = 1;
 	const MAX_LENGTH = 2;
 	const LENGTH = 3;
@@ -11,7 +11,7 @@ class Element {
 	const REGEX = 6;
 	const INTEGER = 7;
 	const FLOAT = 8;
-	const RANGE = 9;	
+	const RANGE = 9;
 	const REQUIRED = 10;
 	const EQUAL = 11;
 	const IS_IN = 12;
@@ -35,7 +35,7 @@ class Element {
 	}
 
 	public function setAttrs( array $attr ) {
-		$this->attr = $attr;	
+		$this->attr = $attr;
 	}
 
 	public function getAttrs() {
@@ -92,12 +92,12 @@ class Element {
 				}
 
 				break;
-		}	
+		}
 
 		$this->rules[$type] = array(
 			'msg' => $msg,
 			'opt' => $opt
-		); 
+		);
 	}
 
 	public function getRule( $type ) {
@@ -122,8 +122,8 @@ class Element {
 
 	public function setErrors( array $errors ) {
 		$this->errors = $errors;
-	} 
-	
+	}
+
 	public function getErrors() {
 		return $this->errors;
 	}
@@ -152,7 +152,7 @@ class Element {
 					if( strlen($value) != $args['opt'] ) {
 						$current = true;
 					}
-		
+
 					break;
 				case static::EMAIL:
 					if( \filter_var($value, FILTER_VALIDATE_EMAIL) === false ) {
@@ -214,8 +214,11 @@ class Element {
 
 	public function isSubmitted() {
 		return isset( $this->attr['value'] );
-	}	
-
-	public function render() {
 	}
+
+	public function getName(){
+		return $this->attr['name'];
+	}
+
+	abstract public function render();
 }

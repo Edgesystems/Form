@@ -2,9 +2,9 @@
 
 namespace edge\form\element;
 
-class Text extends Element {
+class Hidden extends Element {
 	protected $attr = array(
-		'type' => 'text'
+		'type' => 'hidden'
 	);
 
 	public function render() {
