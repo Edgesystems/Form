@@ -220,5 +220,9 @@ abstract class Element {
 		return $this->attr['name'];
 	}
 
+	public function disabled(){
+		$this->attr['disabled'] = 'disabled';
+	}
+
 	abstract public function render();
 }

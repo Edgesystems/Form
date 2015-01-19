@@ -21,8 +21,6 @@ class Select extends Element {
 
 		if(!empty($this->attr['value'])){
 			$selected_value = $this->attr['value'];
-
-			unset($this->attr['value']);
 		}
 
 		foreach ((array) $this->options as $value => $option_name) {
@@ -35,7 +33,15 @@ class Select extends Element {
 			$html .= '>' . $option_name . '</option>';
 		}
 
-		return '<select' . $this->renderAttr() . '>' . $html . '</select>';
+		$org = $this->attr;
+
+		unset($this->attr['value']);
+
+		$html = '<select' . $this->renderAttr() . '>' . $html . '</select>';
+
+		$this->attr = $org;
+
+		return $html;
 	}
 }
 

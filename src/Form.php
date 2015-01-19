@@ -250,4 +250,18 @@ class Form {
 
 		return false;
 	}
+
+	public function getErrors() {
+		$return = [];
+
+		foreach( $this->structure as $el ) {
+			$tmp = $el->getErrors();
+
+			if($tmp){
+				$return[] = $tmp;
+			}
+		}
+
+		return $return;
+	}
 }
