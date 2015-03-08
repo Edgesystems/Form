@@ -12,7 +12,7 @@ class Form {
 
 		if( $data === NULL ) {
 			if( isset($attr['method']) ) {
-				$data = ( $attr['method'] === 'post' ? $_POST : $GET );
+				$data = ( $attr['method'] === 'post' ? $_POST : $_GET );
 			} else {
 				$data = $_GET;
 			}
@@ -83,7 +83,7 @@ class Form {
 
 		return '
 		<form' . element\HtmlElement::renderAttr( $this->attr ) . '>
-			' . $html . ';
+			' . $html . '
 		</form>';
 	}
 
