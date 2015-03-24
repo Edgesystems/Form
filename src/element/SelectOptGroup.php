@@ -26,6 +26,12 @@ class SelectOptGroup extends Element {
 		}
 
 		foreach ($this->options as $label => $rows) {
+			$required = false;
+
+			if(in_array('required', $this->attr)){
+				$required = true;
+			}
+
 			$html .= '<optgroup label="' . $label . '">';
 
 			foreach ((array) $rows as $value => $option_name) {
@@ -35,9 +41,14 @@ class SelectOptGroup extends Element {
 					$html .= ' selected';
 				}
 
+				if(!$value && $required){
+					$html .= ' disabled="disabled" ';
+				}
+
 				$html .= '>' . $option_name . '</option>';
 			}
 		}
+
 		return '<select' . $this->renderAttr() . '>' . $html . '</select>';
 	}
 }
