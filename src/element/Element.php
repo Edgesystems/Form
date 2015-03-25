@@ -15,6 +15,7 @@ abstract class Element {
 	const REQUIRED = 10;
 	const EQUAL = 11;
 	const IS_IN = 12;
+	const CLOSURE = 13;
 
 	protected $attr = array();
 	protected $rules = array();
@@ -73,6 +74,12 @@ abstract class Element {
 
 				if( !((is_int($opt[0]) || ctype_digit($opt[0])) || (is_int($opt[1]) || ctype_digit($opt[1]))) ) {
 					throw new \Exception( 'Invalid params to min-length.' );
+				}
+
+				break;
+			case static::CLOSURE:
+				if( !$opt instanceof \Closure ) {
+					throw new \Exception( 'Invalid closure' );
 				}
 
 				break;
@@ -190,13 +197,27 @@ abstract class Element {
 					}
 
 					break;
+				case static::CLOSURE:
+					$ret = $args['opt']( $this );
+
+					if( is_string($ret) ) {
+						$args['msg'] = $ret;
+					}
+
+					$current = $ret !== true;
+
+					break;
 			}
 
 			if( $current ) {
 				$msg = str_replace( ':value', $value, $args['msg'] );
 
-				foreach( (array) $args['opt'] as $key =>  $entry ) {
-					$msg = str_replace( ':arg' . $key, $entry, $args['msg'] );
+				if( $args['opt'] instanceof \Closure ) {
+					//
+				} else {
+					foreach( (array) $args['opt'] as $key =>  $entry ) {
+						$msg = str_replace( ':arg' . $key, $entry, $args['msg'] );
+					}
 				}
 
 				$this->errors[$type] = $msg;
