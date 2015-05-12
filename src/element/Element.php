@@ -135,9 +135,17 @@ abstract class Element {
 		return $this->errors;
 	}
 
+	public function isRequired(){
+		return isset($this->attr['required']) || (bool) $this->getRule(static::REQUIRED);
+	}
+
 	public function isValid() {
 		$return = true;
 		$value = $this->getAttr( 'value' );
+
+		if(empty($value) && !$this->isRequired()){
+			return true;
+		}
 
 		foreach( $this->rules as $type => $args ) {
 			$current = false;
