@@ -94,7 +94,7 @@ class Form {
 
 		$return = true;
 		foreach( $this->structure as $el ) {
-			$return = $return && $el->isSubmitted();
+			$return = $return && (!$el->isRequired() || $el->isSubmitted() );
 		}
 
 		return $return;
