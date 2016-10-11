@@ -251,6 +251,10 @@ class Form {
 		return false;
 	}
 
+	public function getElements() {
+		return $this->structure;
+	}
+
 	public function getErrors() {
 		$return = [];
 
